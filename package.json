@@ -1,0 +1,24 @@
+{
+  "name": "image-search-abstraction-layer",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Example image search api using imgur",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diarmuid-murphy/image-search-abstraction-layer.git"
+  },
+  "author": "Diarmuid Murphy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diarmuid-murphy/image-search-abstraction-layer/issues"
+  },
+  "homepage": "https://github.com/diarmuid-murphy/image-search-abstraction-layer#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
