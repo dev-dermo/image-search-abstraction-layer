@@ -1,11 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var db = 'mongodb://localhost:27017/test';
+var db = process.env.DB;
 var Search = require('./Search.model');
 var request = require('request');
 var path = require('path');
 var ejs = require('ejs');
-
 
 mongoose.connect(db);
 
@@ -60,7 +59,7 @@ app.get('/api/imagesearch/:searchQuery', function(req, res) {
 	var options = {
 		url: "https://api.imgur.com/3/gallery/search/?q=" + searchQuery,
 		headers: {
-			"Authorization": "Client-ID 8aaf4a98c252dc9"
+			"Authorization": process.env.SECRET
 		}
 	};
 
