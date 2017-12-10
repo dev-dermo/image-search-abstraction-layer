@@ -80,12 +80,17 @@ app.get('/api/imagesearch/:searchQuery', function(req, res) {
 				if (searchResult.data[i].link && searchResult.data[i].title) {
 					result[i] = {
 						title: searchResult.data[i].title,
-						url: searchResult.data[i].link
+						url: searchResult.data[i].link,
+						views: searchResult.data[i].views,
+						// ups: searchResult.data[i].ups,
+						// downs: searchResult.data[i].downs,
+						approval_percentage: Math.floor((searchResult.data[i].ups / (searchResult.data[i].ups + searchResult.data[i].downs)) * 100)
 					};
 				}
 			}
 
 			res.json(result);
+			// res.json(searchResult);
 		}
 	});
 
