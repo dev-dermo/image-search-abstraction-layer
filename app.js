@@ -68,6 +68,10 @@ app.get('/api/imagesearch/:searchQuery', function(req, res) {
 			var responseLength = searchResult.data.length;
 			var maxToShow = 10;
 
+			if (offset >= responseLength) {
+				offset = 0;
+			}
+
 			if ((offset + 10) > responseLength) {
 				maxToShow = responseLength - offset;
 			}
