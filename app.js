@@ -3,15 +3,20 @@ var mongoose = require('mongoose');
 var db = 'mongodb://localhost:27017/test';
 var Search = require('./Search.model');
 var request = require('request');
+var path = require('path');
+var ejs = require('ejs');
+
 
 mongoose.connect(db);
 
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-	res.send('Hello, World!');
+	res.render('index');
 });
 
 // pull latest searches from mongo
