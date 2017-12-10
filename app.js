@@ -45,9 +45,47 @@ app.use('/api/imagesearch/:searchQuery', function(req, res, next) {
 
 app.get('/api/imagesearch/:searchQuery', function(req, res) {
 	var searchQuery = req.params.searchQuery;
-	var offset = req.query.offset;
+	var offset = parseInt(req.query.offset);
+
+	if (!offset) {
+		console.log('Looks like offset wasn\'t supplied NaN');
+		offset = 0;
+	}
+
+	var options = {
+		url: "https://api.imgur.com/3/gallery/search/?q=" + searchQuery,
+		headers: {
+			"Authorization": "Client-ID 8aaf4a98c252dc9"
+		}
+	};
+
+	request(options, function(error, response, body) {
+		if (error) { console.error('error contacting imgur api') }
+		else {
+			var result = {};
+			var searchResult = JSON.parse(body);
+
+			var responseLength = searchResult.data.length;
+			var maxToShow = 10;
+
+			if ((offset + 10) > responseLength) {
+				maxToShow = responseLength - offset;
+			}
+
+			for (var i=offset;i<offset+maxToShow;i++) {
+				if (searchResult.data[i].link && searchResult.data[i].title) {
+					result[i] = {
+						title: searchResult.data[i].title,
+						url: searchResult.data[i].link
+					};
+				}
+			}
+
+			res.json(result);
+		}
+	});
+
 	console.log('This will search the imgur api for "' + searchQuery + '", with an offset of ' + offset);
-	res.send('This will search the imgur api for "' + searchQuery + '", with an offset of ' + offset);
 });
 
 app.listen(app.get('port'), function() {
